@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Enemy : MonoBehaviour {
     [Header("Set in Inspector: Enemy")]
     public float speed = 10f;
@@ -38,10 +38,9 @@ public class Enemy : MonoBehaviour {
 
         if(bndCheck!=null && bndCheck.offDown)
         {
-            if (pos.y < bndCheck.camHeight - bndCheck.radius)
-            {
+            
                 Destroy(gameObject);
-            }
+    
         }
 	}
     public virtual void Move()

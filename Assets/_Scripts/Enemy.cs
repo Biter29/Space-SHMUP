@@ -2,64 +2,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class Enemy : MonoBehaviour {
-    [Header("Set in Inspector: Enemy")]
-    public float speed = 10f;
-    public float fireRate = 0.3f;
-    public float health = 10;
-    public int score = 100;
-
-    private BoundsCheck bndCheck;
-    private void Awake()
+    public class Enemy : MonoBehaviour
     {
-        bndCheck = GetComponent<BoundsCheck>();
-    }
-    public Vector3 pos
-    {
-        get
+        [Header("Set in Inspector: Enemy")]
+        public float speed = 10f;
+        public float fireRate = 0.3f;
+        public float health = 10;
+        public int score = 100;
+
+        protected BoundsCheck bndCheck;
+        private void Awake()
         {
-            return (this.transform.position);
+            bndCheck = GetComponent<BoundsCheck>();
         }
-        set
+        public Vector3 pos
         {
-            this.transform.position = value;
+            get
+            {
+                return (this.transform.position);
+            }
+            set
+            {
+                this.transform.position = value;
+            }
         }
-    }
 
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        Move();
-
-        if(bndCheck!=null && bndCheck.offDown)
+        // Use this for initialization
+        void Start()
         {
-            
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            Move();
+
+            if (bndCheck != null && bndCheck.offDown)
+            {
+
                 Destroy(gameObject);
-    
+
+            }
         }
-	}
-    public virtual void Move()
-    {
-        Vector3 tempPos = pos;
-        tempPos.y -= speed * Time.deltaTime;
-        pos = tempPos;
-    }
-    void OnCollisionEnter(Collision coll)
-    {
-        GameObject otherGO = coll.gameObject;
-        if (otherGO.tag == "ProjectileHero")
+        public virtual void Move()
         {
-            Destroy(otherGO);
-            Destroy(gameObject);
+            Vector3 tempPos = pos;
+            tempPos.y -= speed * Time.deltaTime;
+            pos = tempPos;
         }
-        else
+        void OnCollisionEnter(Collision coll)
         {
-            print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+            GameObject otherGO = coll.gameObject;
+            if (otherGO.tag == "ProjectileHero")
+            {
+                Destroy(otherGO);
+                Destroy(gameObject);
+            }
+            else
+            {
+                print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+            }
         }
     }
-}

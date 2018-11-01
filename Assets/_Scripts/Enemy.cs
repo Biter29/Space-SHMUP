@@ -55,14 +55,27 @@ using UnityEngine.SceneManagement;
         void OnCollisionEnter(Collision coll)
         {
             GameObject otherGO = coll.gameObject;
-            if (otherGO.tag == "ProjectileHero")
-            {
+        switch (otherGO.tag)
+        {
+           
+            case "ProjectileHero":
+                Projectile p = otherGO.GetComponent<Projectile>();
+                if (!bndCheck.isOnScreen)
+                {
+                    Destroy(otherGO);
+                    break;
+                }
+                health -= Main.GetWeaponDefinition(p.type).damageonHit;
+                if (health <= 0)
+                {
+                    Destroy(this.gameObject);
+                }
                 Destroy(otherGO);
-                Destroy(gameObject);
-            }
-            else
-            {
-                print("Enemy hit by non-ProjectileHero: " + otherGO.name);
-            }
+                break;
+            default:
+                print("Enemy hit by non-projectile: " + otherGO.name);
+                break;
+        }
+        
         }
     }

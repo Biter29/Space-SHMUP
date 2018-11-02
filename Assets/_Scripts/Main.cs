@@ -8,7 +8,7 @@ public class Main : MonoBehaviour {
     static Dictionary<WeaponType, WeaponDefinition> WEAP_DICT;
     [Header("Set in Inspector")]
     public GameObject[] prefabEnemies;
-    public float enemySpawnPerSecond=0.5f;
+    public float enemySpawnPerSecond=2f;
     public float enemyDefaultPadding = 1.5f;
     public WeaponDefinition[] weaponDefinitions;
     public GameObject prefabPowerUp;
